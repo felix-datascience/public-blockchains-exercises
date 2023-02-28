@@ -60,14 +60,14 @@
 // This is an asynchronous anonymous self-executing function. It is a ugly
 // construct, but it allows you to use await inside its body.
 (async () => {
-    
+
     // Your code maybe here!
 
 })();
 
 // However, the async function could also be named, and the result is:
 const network = async () => {
-    
+
     // Your code here!
 
 };
@@ -97,7 +97,7 @@ const network = async () => {
 
 // // Look up the current block number
 const blockNum = async () => {
-    
+
     // Your code here!
 
 };
@@ -140,7 +140,7 @@ const blockDiff = async () => {
 const checkBlockTime = async (providerName = "mainnet", blocks2check = 3) => {
 
     // JS Ternary Operator.
-    let provider = providerName.toLowerCase() === "mainnet" ? 
+    let provider = providerName.toLowerCase() === "mainnet" ?
         mainnetProvider : goerliProvider;
 
     // Get initial block number and timestamp.
@@ -155,7 +155,7 @@ const checkBlockTime = async (providerName = "mainnet", blocks2check = 3) => {
     let myInterval = setInterval(async () => {
 
         let newBlockNumber = await provider.getBlockNumber();
-        
+
         // Compare block numbers.
         if (newBlockNumber !== blockNumber) {
             // Check time.
@@ -163,7 +163,7 @@ const checkBlockTime = async (providerName = "mainnet", blocks2check = 3) => {
             let timeDiff = d2 - d;
             console.log(providerName, "New Block num:", newBlockNumber);
             console.log(providerName, "It took: ", timeDiff);
-            
+
             // Update loop variables.
             d = d2;
             if (++blocksChecked >= blocks2check) {
@@ -173,7 +173,7 @@ const checkBlockTime = async (providerName = "mainnet", blocks2check = 3) => {
         }
 
     }, 1000);
-    
+
 };
 
 // checkBlockTime("Mainnet");
@@ -217,7 +217,7 @@ const checkBlockTime2 = async (providerName = "mainnet", blocks2check = 3) => {
 // Hint: pass `true` as second parameter to .getBlock(blockNumber, true).
 
 const blockInfo = async () => {
-    
+
     // Your code here!
 
 };
@@ -231,7 +231,7 @@ const blockInfo = async () => {
 // address.
 
 const ens = async () => {
-    
+
     // Your code here!
 
 };
@@ -256,7 +256,7 @@ const ens = async () => {
 
 const balance = async (ensName = "unima.eth") => {
 
-   // Your code here!
+    // Your code here!
 
 };
 
@@ -290,7 +290,7 @@ const linkABI = require('./link_abi.json');
 // https://faucets.chain.link/goerli
 
 const link = async () => {
-   
+
     // Your code here!
 };
 

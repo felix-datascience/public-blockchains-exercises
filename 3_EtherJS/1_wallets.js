@@ -39,8 +39,8 @@
 // be executed, until you tell the process to stop. 
 
 // This line will tell the process to stop.
-process.exit(0);
-console.log('I am sad line...I will not be printed to console :(');
+//console.log('I am sad line...I will not be printed to console :(');
+//process.exit(0);
 
 // a. Move the sad line above and below `process.exit(0);` to check that the
 // process stops where it is intended to. When you are done, comment out both
@@ -54,6 +54,12 @@ console.log('I am sad line...I will not be printed to console :(');
 let exercise = 0;
 
 // Your code here!
+function exit() {
+    console.log("Process stops here, Exercise " + exercise)
+    process.exit(0);
+}
+
+// exit();
 
 // c. Bonus. Did you realize that JavaScript/Node.JS has three different ways
 // of declaring a function?
@@ -90,6 +96,7 @@ exercise = 1;
 
 require('dotenv').config();
 
+// console.log(process.env);
 // exit();
 
 // Exercise 2. Create .env file.
@@ -109,11 +116,11 @@ exercise = 2;
 
 // Create a .env file with the necessary information.
 // Hint: you can copy .env_sample, modify its content and save it as .env.
- 
-// See if it worked.
-console.log(process.env);
 
-// exit();
+// See if it worked.
+//console.log(process.env);
+
+//exit();
 
 // Exercise 3. Check the content of the .env file.
 //////////////////////////////////////////////////
@@ -127,9 +134,11 @@ exercise = '3a';
 // if statement that print a warning message if empty.
 // Hint: https://javascript.info/ifelse
 
-// Your code here!
+if (process.env['METAMASK_ACCOUNT_1'] != undefined) {
+    console.log('metamask account missing')
+}
 
-// exit();
+//exit();
 
 // b. Create an array with all the names of the variables written in the .env
 // file. Then print the lenght of the array.
@@ -137,9 +146,23 @@ exercise = '3a';
 
 exercise = '3b';
 
-// Your code here!
+envVariables = [
+    "INFURA_KEY",
+    "INFURA_GOERLI_API_URL",
+    "INFURA_MAINNET_API_URL",
+    "ALCHEMY_KEY",
+    "ALCHEMY_GOERLI_API_URL",
+    "ALCHEMY_MAINNET_API_URL",
+    "METAMASK_1_ADDRESS",
+    "METAMASK_1_PRIVATE_KEY",
+    "METAMASK_2_ADDRESS",
+    "METAMASK_2_PRIVATE_KEY",
+    "ETHERSCAN_KEY"
+];
 
-// exit();
+//console.log(envVariables.length);
+
+//exit();
 
 // c. Loop through all the elements of the array and check that the variable
 // is set and non-empty under `process.env`.
@@ -148,32 +171,44 @@ exercise = '3b';
 // Hint2: `process.env` is an object, if you don't know how to access its 
 // field, read here: https://javascript.info/object
 
-
 // Solution 1. forEach.
-variablesToCheck.forEach(v => {
-    // Your code here!
-});
+//envVariables.forEach(v => {
+//    if (process.env[v] == undefined) {
+//        console.log(v + ' missing in .env file!');
+//    }
+//});
 
-// Solution 2. For-loop.
+// Solution 2. For-loop
 
-// Your code here!
+//for (variable of envVariables) {
+//    if (process.env[variable] == undefined) {
+//        console.log(variable + ' missing in .env file!');
+//    } 
+//}
 
 
-// exit();
+
+//exit();
 
 
 // Exercise 4. Create a Random Wallet.
 //////////////////////////////////////
 exercise = '4a';
 
+const { Mnemonic, HDNodeWallet } = require('ethers');
 const ethers = require("ethers");
 
 // a. Create a random wallet and print the address, the private key,
 // and the mnenomic phrase.
 // Hint: ethers.Wallet.createRandom();
 
+wallet = ethers.Wallet.createRandom();
+//console.log(wallet);
+//console.log(wallet.address);
+//console.log(wallet.privateKey);
+//console.log(wallet.mnemonic.phrase);
 
-// exit();
+//exit();
 
 // b. Bonus. Print the derivation path of the wallet and check that it is
 // equal to `baseDevPath`. 
@@ -190,12 +225,15 @@ let baseDevPath = "m/44'/60'/0'/0/";
 // https://vault12.com/securemycrypto/crypto-security-basics/what-is-bip39/
 
 
-console.log("Derivation path:", wallet.path);
+//console.log("Derivation path:", wallet.path);
 
 // Your code here!
 
+//console.log(baseDevPath == wallet.path);
+//console.log(baseDevPath);
+//console.log(wallet.path);
 
-// exit();
+//exit();
 
 // Exercise 5. Bonus. Create a Hierarchical Deterministic Wallet.
 /////////////////////////////////////////////////////////////////
@@ -207,6 +245,16 @@ exercise = 5;
 // finally print the first 10 addresses and private keys generated.
 // Hint: You need to append an index to the derivation path.
 
-// Your code here!
+phrase = wallet.mnemonic.phrase;
 
-// exit();
+for (let i = 0; i < 10; i++) {
+    if (i != 0) {
+        console.log();
+    }
+    path = `${baseDevPath}${i}`;
+    console.log(`path:\t\t\t${path}`);
+    newWallet = HDNodeWallet.fromPhrase(phrase, path=path);
+    console.log(`address:\t\t${newWallet.address}`);
+    console.log(`private key:\t${newWallet.privateKey}`);
+}
+exit();
